@@ -1,0 +1,47 @@
+.search-item{
+    border-radius: 10px;
+    border: 2px solid #EDEFF2;
+}
+
+.searc-input{
+
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    height: 30px;
+    width: 100%;
+    padding:0 14px;
+}
+.searc-input .search{
+    border: 0;
+    font-size: 14px;
+    width: 100%;
+}
+
+.mm{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #6b7a99;
+    min-width: 40px;
+}
+
+.minmax{
+
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    border: 0px;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+    font-size: 12px;
+}
+
+.currency-wrap{
+    position:relative;
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,40 @@
+footer{
+    background-color: #16A085;
+}
+
+.list {
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center !important;
+    padding-left: 0;
+    list-style: none;
+    border-bottom: 1px solid #dee2e6 !important;
+   
+}
+
+.fitem {
+
+    display: list-item;
+    color: white;
+}
+
+.b-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.dire {
+
+    font-size: 12px;
+    display: block;
+    margin: 2px 0 0;
+    color: white;
+}
+
+.follow{
+    font-size: 18px;
+    color: white;
+}
+

@@ -1,0 +1,57 @@
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    
+}
+
+.contact{
+    font-size: 20px;
+    color: #4D5E80;
+}
+
+.sub-t{
+    color: #4D5E80;
+    margin: 15px 0px 5px 0px;
+}
+
+.in-form{
+        border-radius: 5px;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+        border-width: 1px;
+        border-color: #4D5E80;
+        height: 30px;
+        width: 80%;
+        padding:0 14px;
+}
+
+.te-form{
+        border-radius: 5px;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+        border-width: 1px;
+        border-color: #4D5E80;
+        height: 120px;
+        width: 100%;
+        padding:0 14px;
+}
+
+.buttonDiv {
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    border: 0;
+    background: #16A085;
+    height: 35px;
+    width: 90px;
+    transition: .2s;
+    color: white;
+    display: flex;
+    align-self: self-end;
+    justify-content: center;
+}
+
+.buttonDiv:hover{
+
+    box-shadow: 0px 2px 5px 7px rgba(38, 51, 77, 0.06);
+    transform: scale(1.02);
+}

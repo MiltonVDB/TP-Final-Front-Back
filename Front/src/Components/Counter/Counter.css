@@ -1,0 +1,19 @@
+.count{
+
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    border: 0;
+    background: #16A085;
+    margin: 5px;
+    width: auto;
+    color: white;
+    min-height: auto;
+    transition: .2s;
+
+}
+
+.count:hover{
+
+    box-shadow: 0px 2px 5px 7px rgba(38, 51, 77, 0.06);
+    transform: scale(1.02);
+}

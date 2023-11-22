@@ -1,0 +1,40 @@
+nav {
+    background-color: #F7F8FA;
+    height: 80px;
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid #EDEFF2;
+    z-index: 99;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.logo-icon{
+    color: #16A085;
+    font-size: 30px;
+}
+
+.logo-name{
+
+    color: #16A085;
+    font-weight: 600;
+    
+
+}
+
+.form-menu{
+
+    color: var(--gray-blue-grey-blue-60, #6B7A99);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+
+}
+
+.nav-item {
+    color: #16A085;
+    font-size: 20px;
+}
