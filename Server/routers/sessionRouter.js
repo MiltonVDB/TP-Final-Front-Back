@@ -1,30 +1,95 @@
 const express = require('express')
-const { createUser, verifyExistUser, getUser } = require('../dao/controllers/userController')
+const bcrypt = require('bcrypt')
+const User = require('../dao/models/userModel')
+const { createAccessToken } = require('../dao/libs/jws')
+const { createUser, verifyExistUser} = require('../dao/controllers/userController')
+const { authRequired } = require('../dao/controllers/tokenController')
 const sessionRouter = express.Router()
 
-sessionRouter.post('/register', async (req, res) => {
-    const {nombre, email, contrasena} = req.body
-    if(await verifyExistUser(nombre)){
-        res.redirect('/register', {error: 'El nombre de usuario ya esta siendo utilizado'})
-    }else{
-        const newUser = await createUser({nombre, email, contrasena})
-        if(newUser){
-           res.status(200).json({ok: true, content: 'usuario creado con exito'}).redirect('/login')
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
+
+sessionRouter.post('/register',async (req, res) => {
+    try{
+        const {nombre, email, contrasena} = req.body
+
+        if(await verifyExistUser(email)){
+
+            return res.status(400).json(["Este Email ya esta en uso"])
+
+        }else{
+
+            const userSaved = await createUser({nombre, email, contrasena})
+
+            const token = await createAccessToken ({id: userSaved._id})
+    
+            res.cookie("token", token)
+
+            res.json({
+                id: userSaved._id,
+                username: userSaved.username,
+                email: userSaved.email,
+             })
+            
         }
+    }catch(error){
+        res.status(500).json({ message: error.message })
     }
 })
 
+
 sessionRouter.post('/login', async (req, res) => {
-    const {nombre, contrasena} = req.body
-    if(await verifyExistUser(nombre)){
-        if(await getUser(nombre, contrasena)){
-            res.redirect('/')
-        }else{
-            res.redirect('/login', {error: 'Contraseña incorrecta'})
+    const { email, contrasena } = req.body
+
+    try{
+
+        const userFound = await verifyExistUser(email)
+        if (!userFound){
+            return res.status(400).json(["Usuario no encontrado"])
         }
-    }else{
-        res.status(404).redirect('/login', {error: 'El nombre de usuario no existe'})
+
+        const isMatch = await bcrypt.compare(contrasena, userFound.contrasena)
+        if (!isMatch){
+            return res.status(400).json(["Contraseña incorrecta"])
+        }
+
+        const token = await createAccessToken ({id: userFound._id})
+    
+        res.cookie("token", token)
+
+        res.json({
+            id: userFound._id,
+            username: userFound.username,
+            email: userFound.email,
+        })
+
+    }catch(error){
+        res.status(500).json({ message: error.message })
     }
 })
+
+
+sessionRouter.post('/logout', (req, res) => {
+    
+    res.cookie('token', '', {expires: new Date(0)})
+    return res.sendStatus(200)
+
+})
+
+
+sessionRouter.get('/profile', authRequired, async (req, res) => {
+    const userFound = await User.findById(req.user.id)
+
+    if(!userFound){
+        return res.status(400).json({message: 'Usuario no encontrado'})
+    }
+
+    return res.json({
+        id: userFound._id,
+        username: userFound.nombre,
+        email: userFound.email
+    })
+})
+
 
 module.exports = sessionRouter

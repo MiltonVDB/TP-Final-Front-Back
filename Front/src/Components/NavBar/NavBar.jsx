@@ -17,7 +17,7 @@ const NavBar = () => {
         <div className='y-center ms-auto'>
           <NavLink className='form-menu me-3' to='/form'>Contacto</NavLink>
 
-          <NavLink to='/'><i className="bi bi-house-door-fill nav-item me-3"></i></NavLink>
+          <NavLink to='/home'><i className="bi bi-house-door-fill nav-item me-3"></i></NavLink>
 
           <NavLink to='/cart'><i className="bi bi-cart-fill nav-item me-3"></i></NavLink>
 

@@ -45,7 +45,7 @@ const CartPage = () => {
 
         <h1>No has Comprado nada</h1>
 
-        <NavLink className='' to='/'>
+        <NavLink className='' to='/home'>
           <h3>Presione AQUI para comprar</h3>
         </NavLink>
 

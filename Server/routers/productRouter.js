@@ -1,19 +1,21 @@
 const express = require('express')
 const { createProduct, getProducts, getProductById, updateProduct, deleteProduct } = require('../dao/controllers/productController')
+const { authRequired } = require('../dao/controllers/tokenController')
 const productRouter = express.Router()
 
-productRouter.get('/', async (req, res) => {
+
+productRouter.get('/', authRequired, async (req, res) => {
     res.json({ok: true, products: await getProducts()})
 })
 
-productRouter.post('/', async (req, res) => {
+productRouter.post('/', authRequired, async (req, res) => {
     const {nombre, precio, stock, descripcion, thumbnail} = req.body
     console.log({nombre, precio, stock, descripcion})
     await createProduct({nombre, precio, stock, descripcion, thumbnail})
     res.json({ok: true, products: await getProducts()})
 })
 
-productRouter.delete('/:pid', async (req, res) => {
+productRouter.delete('/:pid', authRequired, async (req, res) => {
     const {pid} = req.params
     let result = await deleteProduct(pid)
     if(result.ok){
@@ -24,7 +26,7 @@ productRouter.delete('/:pid', async (req, res) => {
     
 })
 
-productRouter.put('/:pid/:stock', async (req, res) => {
+productRouter.put('/:pid/:stock', authRequired, async (req, res) => {
     const {pid} = req.params
     const {stock} = req.body
     let result = await updateProduct(stock, pid)
@@ -35,7 +37,7 @@ productRouter.put('/:pid/:stock', async (req, res) => {
     }
 })
 
-productRouter.get('/:pid', async (req, res) => {
+productRouter.get('/:pid', authRequired, async (req, res) => {
     const {pid} = req.params
     let result = await getProductById(pid)
     if(result.ok){
