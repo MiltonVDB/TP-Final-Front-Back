@@ -4,17 +4,17 @@ dotenv.config()
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET
 
-const authRequired = (req, res, next) => {
+const userRequired = (req, res, next) => {
 
     const {token} = req.cookies
 
     if (!token){
-        return res.status(401).json({message: 'no token, autorizacion denegada'})
+        return res.status(401).json({message: 'Token invalido - Autorizacion denegada'})
     }
 
     jwt.verify(token, TOKEN_SECRET, (err, user) => {
         if(err){
-            return res.status(403).json({message: 'Token invalido'})
+            return res.status(403).json({message: 'Token invalido - Autorizacion denegada'})
         }
 
         req.user = user
@@ -24,4 +24,4 @@ const authRequired = (req, res, next) => {
     
 }
 
-module.exports = {authRequired}
+module.exports = {userRequired}

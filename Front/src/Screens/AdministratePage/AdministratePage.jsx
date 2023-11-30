@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { ProductCard } from '../../Components'
-import { useCustomContext } from '../../ContextManager/ContextProvider'
+import { ProductCard, CreateCard } from '../../Components'
 import { useProduct } from '../../ContextManager/ProductContext'
-import './HomePage.css'
 
-const HomePage = () => {
+const AdministratePage = () => {
   
-  const {} = useProduct()
-  const {products} = useCustomContext()
+  const {products} = useProduct()
+
   const [searchProduct, setSearchProduct] = useState('')
   const [currentProducts, setCurrentProducts] = useState(products)
   const [max, setMax] = useState(1000000)
   const [min, setMin] = useState(0)
 
     useEffect(() => {
-      setCurrentProducts(
+        setCurrentProducts(
         products.filter(producto => producto.nombre.toLowerCase().includes(searchProduct.toLowerCase()) && producto.precio >= min && producto.precio <= max
         ))}, [searchProduct, min, max])
 
@@ -82,7 +80,9 @@ const HomePage = () => {
 
           <div className='row'>
 
-            {currentProducts.map(producto => (<ProductCard producto={producto} key={producto.id}/>))}
+            <CreateCard/>
+
+            {products.map(producto => (<ProductCard producto={producto} key={producto._id}/>))}
 
           </div>
 
@@ -94,4 +94,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default AdministratePage

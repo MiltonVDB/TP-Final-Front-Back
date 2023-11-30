@@ -3,6 +3,7 @@ import { useCustomContext } from '../../ContextManager/ContextProvider'
 import { ProductCartCard } from '../../Components'
 import './CartPage.css'
 import {NavLink} from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 const CartPage = () => {
     const {cart, setCart, getTotal} = useCustomContext()

@@ -24,7 +24,7 @@ const DetailPage = () => {
 
         <div className='row row-cols-1 row-cols-xs-1 row-cols-md-2 mt-4 y-center'>
 
-            <img className='col imgd my-2' src={'/Assets/Images/' + productDetail.imagen} alt={productDetail.nombre} />
+            <img className='col imgd my-2' src={'/Images/' + productDetail.imagen} alt={productDetail.nombre} />
               
             <div className='desc col my-2'>
               

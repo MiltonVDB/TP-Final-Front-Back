@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Swal from 'sweetalert2'
 import './FormPage.css'
 
 const FormPage = () => {

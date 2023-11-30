@@ -29,7 +29,7 @@ const LoginPage = () => {
 
                 <i className='bi bi-person-fill log-icon mx-2'></i>
       
-                <input className='in-log' placeholder='Ingrese su Email' type="email" {...register('email', {required: true})}/>
+                <input className='in-log' placeholder='Ingrese su Email' type="email" autoFocus {...register('email', {required: true})}/>
             
             </div>
 

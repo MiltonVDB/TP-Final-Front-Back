@@ -1,7 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { useUser } from "./ContextManager/UserContext"
+import { useUser } from "../ContextManager/UserContext";
 
-export const ProtectedRoute = () => {
+
+export const PrivateRoute = () => {
 
   const {isAuthenticated} = useUser();
 

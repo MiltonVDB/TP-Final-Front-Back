@@ -9,7 +9,7 @@ const ProductCartCard = ({producto}) => {
 
       <div className='card px-3'>
 
-        <img className='img mb-2 mt-3' src={'/Assets/Images/' + producto.imagen} alt={producto.nombre} />
+        <img className='img mb-2 mt-3' src={'/Images/' + producto.imagen} alt={producto.nombre} />
 
         <b className='tcc my-4'>{producto.nombre}</b>
 

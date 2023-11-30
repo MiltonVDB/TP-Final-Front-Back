@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const User = require('../dao/models/userModel')
 const { createAccessToken } = require('../dao/libs/jws')
 const { createUser, verifyExistUser} = require('../dao/controllers/userController')
-const { authRequired } = require('../dao/controllers/tokenController')
+const { userRequired } = require('../dao/controllers/tokenController')
 const sessionRouter = express.Router()
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL
@@ -76,8 +76,24 @@ sessionRouter.post('/logout', (req, res) => {
 
 })
 
+sessionRouter.get('/verify' , userRequired, async (req, res) => {
 
-sessionRouter.get('/profile', authRequired, async (req, res) => {
+    const userFound = await User.findById(req.user.id)
+
+    if(!userFound){
+        return res.status(401).json({message: 'Sin Autorizacion'})
+    } 
+
+    return res.json({
+        id: userFound._id,
+        username: userFound.nombre,
+        email: userFound.email
+    })
+    
+})
+
+
+/* sessionRouter.get('/profile', userRequired, async (req, res) => {
     const userFound = await User.findById(req.user.id)
 
     if(!userFound){
@@ -89,7 +105,7 @@ sessionRouter.get('/profile', authRequired, async (req, res) => {
         username: userFound.nombre,
         email: userFound.email
     })
-})
+}) */
 
 
 module.exports = sessionRouter

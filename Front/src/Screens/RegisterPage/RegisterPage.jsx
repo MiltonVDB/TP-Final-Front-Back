@@ -26,7 +26,7 @@ const RegisterPage = () => {
 
           <label className='sub-t'>Nombre*:</label>
 
-          <input className='in-form'  placeholder='Ingrese su nombre' type="text" {...register('nombre', {required: true})}/>
+          <input className='in-form'  placeholder='Ingrese su nombre' type="text" autoFocus {...register('nombre', {required: true})}/>
 
           {errors.nombre && (<p>Se requiere un nombre</p>)}
 
