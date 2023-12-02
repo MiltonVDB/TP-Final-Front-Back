@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
       }
     }catch(error){
 
-      setErrors(error.response.data);
+      setErrors(error.response.data)
 
     }
   }
@@ -104,7 +104,7 @@ export const UserProvider = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{user, signup, signin, isAuthenticated, errors, signout}}>
+    <UserContext.Provider value={{ user, signup, signin, isAuthenticated, errors, signout}}>
       {children}
     </UserContext.Provider>
   )

@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ProductCard } from '../../Components'
-import { useCustomContext } from '../../ContextManager/ContextProvider'
 import { useProduct } from '../../ContextManager/ProductContext'
 import './HomePage.css'
 
 const HomePage = () => {
   
-  const {} = useProduct()
-  const {products} = useCustomContext()
+  const { products, getProducts } = useProduct()
   const [searchProduct, setSearchProduct] = useState('')
   const [currentProducts, setCurrentProducts] = useState(products)
   const [max, setMax] = useState(1000000)
   const [min, setMin] = useState(0)
 
-    useEffect(() => {
-      setCurrentProducts(
-        products.filter(producto => producto.nombre.toLowerCase().includes(searchProduct.toLowerCase()) && producto.precio >= min && producto.precio <= max
-        ))}, [searchProduct, min, max])
+  useEffect(() => {
+    getProducts()
+  }, [])
+
+  useEffect(() => {
+    setCurrentProducts(
+      products.filter(producto => producto.nombre.toLowerCase().includes(searchProduct.toLowerCase()) && producto.precio >= min && producto.precio <= max)
+    )
+  }, [products, searchProduct, min, max])
 
   return (
     <div className='container'>
@@ -33,11 +36,11 @@ const HomePage = () => {
 
             </div>
 
-            <hr className='m-0'/>
+            <hr className='m-0' />
 
             <div className="p-3">
               <div className="searc-input y-center">
-                <input className='search' placeholder='Ingrse su busqueda' value={searchProduct} onChange={(e) => setSearchProduct(e.target.value)}/>
+                <input className='search' placeholder='Ingrse su busqueda' value={searchProduct} onChange={(e) => setSearchProduct(e.target.value)} />
                 <i className="bi bi-search"></i>
               </div>
             </div>
@@ -52,8 +55,8 @@ const HomePage = () => {
 
             </div>
 
-            <hr className='m-0'/>
-            
+            <hr className='m-0' />
+
             <div className='p-3 currecy-wrap'>
 
               <div className='y-center py-2'>
@@ -61,7 +64,7 @@ const HomePage = () => {
                 <label className='mm'>Min</label>
 
                 <input className='minmax px-2' type="number" value={min} onChange={(e) => setMin(Number(e.target.value))}/>
-                
+
               </div>
 
               <div className='y-center py-2'>
@@ -77,21 +80,23 @@ const HomePage = () => {
           </div>
 
         </div>
-      
+
         <div className='col-12 col-md-9 order-md-1'>
 
           <div className='row'>
 
-            {currentProducts.map(producto => (<ProductCard producto={producto} key={producto.id}/>))}
+            {currentProducts.map(producto => (<ProductCard producto={producto} key={producto._id}/>))}
 
           </div>
 
         </div>
 
       </div>
+
     </div>
     
   )
+
 }
 
 export default HomePage

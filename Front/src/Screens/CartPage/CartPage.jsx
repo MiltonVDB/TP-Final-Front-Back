@@ -1,12 +1,12 @@
-import React from 'react'
-import { useCustomContext } from '../../ContextManager/ContextProvider'
+
+import { useProduct } from '../../ContextManager/ProductContext'
 import { ProductCartCard } from '../../Components'
 import './CartPage.css'
 import {NavLink} from 'react-router-dom';
 import Swal from 'sweetalert2'
 
 const CartPage = () => {
-    const {cart, setCart, getTotal} = useCustomContext()
+  const { cart, setCart, getTotal } = useProduct()
 
 
     const Comprar = () => {
@@ -44,10 +44,14 @@ const CartPage = () => {
       :
       <div className='no-buy card y-center'>
 
-        <h1>No has Comprado nada</h1>
+        {/* <h1>No has Comprado nada</h1> */}
+
+        <i className="bi bi-hammer"></i>
+
+        <h1>Estamos trabajando.....</h1>
 
         <NavLink className='' to='/home'>
-          <h3>Presione AQUI para comprar</h3>
+          <h3>Presione AQUI para volver al menu</h3>
         </NavLink>
 
       </div>

@@ -1,6 +1,6 @@
 
 const express = require('express')
-const session = require('express-session')
+
 const dotenv = require('dotenv')
 const cors = require('cors')
 const path = require('path')
@@ -41,7 +41,7 @@ const session_params = {
     saveUnitialized: true,
     cookie: {secure: false}
 }
-app.use(session(session_params))
+/* app.use(session(session_params)) */
 
 
 

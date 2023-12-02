@@ -1,5 +1,5 @@
-import {createContext, useContext, useState} from 'react'
-import {getProductsRequest, getProductRequest, createProductRequest, updateProductRequest, deleteProductRequest} from '../api/product'
+import { createContext, useContext, useState } from 'react'
+import { getProductsRequest, getProductRequest, createProductRequest, updateProductRequest, deleteProductRequest } from '../api/product'
 
 const ProductContext = createContext()
 
@@ -17,9 +17,18 @@ export const ProductProvider = ({ children }) => {
 
   const getProducts = async () => {
 
-    const res = await getProductsRequest()
+    try {
+      
+      const res = await getProductsRequest()
+      
+      setProducts(res.data.products)
 
-    setProducts(res.data)
+    } catch (error) {
+
+      console.log(error)
+      
+    }
+
 
   }
 
@@ -27,8 +36,8 @@ export const ProductProvider = ({ children }) => {
   const getProductById = async (id) => {
 
     try {
-      
-      const res = await getProductRequest()
+
+      const res = await getProductRequest(id)
 
       return res.data
 
@@ -47,9 +56,7 @@ export const ProductProvider = ({ children }) => {
 
       const res = await createProductRequest(product)
 
-      setProducts(res.data)
-
-      console.log(res.data)
+      console.log(res.data.products)
 
     } catch (error) {
 
@@ -60,11 +67,11 @@ export const ProductProvider = ({ children }) => {
   }
 
 
-  const updateProduct = async (id, stock) => {
+  const updateProduct = async (id, precio, stock) => {
 
     try {
 
-      await updateProductRequest(id, stock)
+      await updateProductRequest(id, precio, stock)
 
     } catch (error) {
 
@@ -76,9 +83,10 @@ export const ProductProvider = ({ children }) => {
 
   const deleteProduct = async (id) => {
     try {
+
       const res = await deleteProductRequest(id)
 
-      if (res.status === 204) setProducts(products.filter((product) => product._id !== id))
+      if (res.status === 204) setProducts(products.filter((product) => product.id !== id))
 
     } catch (error) {
 
@@ -93,45 +101,45 @@ export const ProductProvider = ({ children }) => {
   const isInCart = (id) => cart.some(producto => producto.id === Number(id))
 
 
-  const addProductCart = (id, quantity) => { 
+  const addProductCart = (id, quantity) => {
 
-      if(isInCart(id)){
+    if (isInCart(id)) {
 
-          setCart (cart.map(product => {
+      setCart(cart.map(product => {
 
-              if(product.id == id){
+        if (product.id == id) {
 
-                  product.quantity = quantity
+          product.quantity = quantity
 
-              }
+        }
 
-              return product
+        return product
 
-          }))
+      }))
 
-      }else{
+    } else {
 
-          setCart ([...cart, {...getProductById(id), quantity: quantity}])
+      setCart([...cart, { ...getProductById(id), quantity: quantity }])
 
-      }
-      
+    }
+
   }
 
 
   const getTotal = () => {
 
-      let total = 0
+    let total = 0
 
-      cart.forEach(product => total += product.precio * product.quantity)
+    cart.forEach(product => total += product.precio * product.quantity)
 
-      return total
+    return total
   }
 
 
 
 
-return (
-    <ProductContext.Provider value={{getProducts, getProductById, createProduct, updateProduct, deleteProduct, getProductCartById, isInCart, addProductCart, getTotal, products, cart, setCart}}>
+  return (
+    <ProductContext.Provider value={{ getProducts, getProductById, createProduct, updateProduct, deleteProduct, getProductCartById, isInCart, addProductCart, getTotal, products, cart, setCart }}>
       {children}
     </ProductContext.Provider>
   )

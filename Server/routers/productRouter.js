@@ -1,50 +1,94 @@
 const express = require('express')
 const { createProduct, getProducts, getProductById, updateProduct, deleteProduct } = require('../dao/controllers/productController')
 const { userRequired } = require('../dao/controllers/tokenController')
+const Product = require('../dao/models/productModel')
 const productRouter = express.Router()
 
 
 productRouter.get('/', userRequired, async (req, res) => {
-    res.json({ok: true, products: await getProducts()})
+    try {
+
+        res.json({ok: true, products: await getProducts()})
+        
+    } catch (error) {
+
+        return res.status(500).json({ message: error.message })
+        
+    }
+    
 })
 
 productRouter.post('/', userRequired, async (req, res) => {
-    const {nombre, tag, precio, stock, descripcion, thumbnail} = req.body
+
+    try {
+
+        const {nombre, tag, precio, stock, descripcion, thumbnail} = req.body
+
+        const desc = descripcion.split('\n')
     
-    await createProduct({nombre, tag, precio, stock, descripcion, thumbnail})
-    res.json({ok: true, products: await getProducts()})
-})
+        await createProduct({nombre, tag, precio, stock, descripcion: desc, thumbnail})
+    
+        res.json({ok: true, products: await getProducts()})
+        
+    } catch (error) {
 
-productRouter.delete('/:pid', userRequired, async (req, res) => {
-    const {pid} = req.params
-    let result = await deleteProduct(pid)
-    if(result.ok){
-        return res.status(200).json({ok: true, products: await getProducts(), deleteProduct: result.deletedProduct})
-    }else{
-        return res.status(404).json({ok: false, error: result.error})
+        return res.status(500).json({ message: error.message })
+        
     }
     
 })
 
-productRouter.put('/:pid/:stock', userRequired, async (req, res) => {
-    const {pid} = req.params
-    const {stock} = req.body
-    let result = await updateProduct(stock, pid)
-    if(result.ok){
-        return res.status(200).json({ok: true, products: result.updatedProduct})
-    }else{
-        return res.status(404).json({ok: false, error: result.error})
+productRouter.get('/:id', userRequired, async (req, res) => {
+    
+    try {
+
+        const item = await Product.findById(req.params.id)
+
+        if (!item) return res.status(404).json({ message: 'No se encontro el producto' })
+
+        return res.json(item)
+        
+    } catch (error) {
+
+        return res.status(500).json({ message: error.message })
+        
     }
+    
+    
+    
 })
 
-productRouter.get('/:pid', userRequired, async (req, res) => {
-    const {pid} = req.params
-    let result = await getProductById(pid)
-    if(result.ok){
-        return res.status(200).json({ok: true, products: result.findProductById})
-    }else{
-        return res.status(404).json({ok: false, error: result.error})
+productRouter.delete('/:id', userRequired, async (req, res) => {
+    
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(req.params.id)
+    
+        if(!deletedProduct)  return res.status(404).json({ message: 'Producto no encontrado' })
+        
+        return res.sendStatus(204)
+        
+    }catch(err){
+        return {error: 'id no valido'}
     }
+    
+})
+
+productRouter.put('/', userRequired, async (req, res) => {
+
+    try{
+
+        const {id, precio, stock} = req.body
+
+        const updateProduct = await Product.findByIdAndUpdate( {_id:id}, {precio, stock}, {new: true})
+
+        return res.json(updateProduct)
+
+    }catch(error){
+        return res.status(500).json({ message: error.message })
+    }
+    
+    
+    
 })
 
 module.exports = productRouter

@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
-import { useCustomContext } from '../../ContextManager/ContextProvider'
+import { useState } from 'react'
+import {useProduct} from '../../ContextManager/ProductContext'
 import './Counter.css'
 
-const Counter = ({initialValue, stock, id}) => {
-    const {addProductCart} = useCustomContext()
+
+const Counter = (initialValue, stock, id) => {
+  
+  const { addProductCart } = useProduct()
+   
     const [quantity, setQuantity] = useState(initialValue)
 
   return (

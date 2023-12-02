@@ -2,6 +2,7 @@ const Product = require("../models/productModel")
 
 
 const createProduct = async (product) => {
+
     const newProduct = new Product(product)
     
     try{
@@ -19,9 +20,10 @@ const getProducts = async () => {
     return await Product.find({})
 }
 
-const getProductById = async (pid) => {
+const getProductById = async (id) => {
     try{
-        const findProductById = await Product.findById(pid)
+
+        const findProductById = await Product.findById(id)
 
         if(findProductById){
             return {ok: true, findProductById}
@@ -30,14 +32,16 @@ const getProductById = async (pid) => {
         }
 
     }catch(err){
+
         return {error: 'id no valido'}
+
     }
     
 }
 
-const updateProduct = async (stock, pid) => {
+const updateProduct = async (stock, id) => {
     try{
-        const updatedProduct = await Product.findByIdAndUpdate(pid, {stock: stock}, {new: true})
+        const updatedProduct = await Product.findByIdAndUpdate(id, {stock: stock}, {new: true})
 
         if(updatedProduct){
             return {ok: true, updatedProduct}
@@ -51,15 +55,14 @@ const updateProduct = async (stock, pid) => {
     
 }
 
-const deleteProduct = async (pid) => {
+const deleteProduct = async (id) => {
     try {
-        const deletedProduct = await Product.findByIdAndDelete(pid)
+        const deletedProduct = await Product.findByIdAndDelete(id)
     
-        if(deletedProduct){
-            return {ok: true, deletedProduct}
-        }else{
-            return {error: 'Producto no encontrado'}
-        }
+        if(!deletedProduct)  return res.status(404).json({ message: 'Producto no encontrado' })
+        
+        return res.sendStatus(204)
+        
     }catch(err){
         return {error: 'id no valido'}
     }

@@ -93,19 +93,4 @@ sessionRouter.get('/verify' , userRequired, async (req, res) => {
 })
 
 
-/* sessionRouter.get('/profile', userRequired, async (req, res) => {
-    const userFound = await User.findById(req.user.id)
-
-    if(!userFound){
-        return res.status(400).json({message: 'Usuario no encontrado'})
-    }
-
-    return res.json({
-        id: userFound._id,
-        username: userFound.nombre,
-        email: userFound.email
-    })
-}) */
-
-
 module.exports = sessionRouter

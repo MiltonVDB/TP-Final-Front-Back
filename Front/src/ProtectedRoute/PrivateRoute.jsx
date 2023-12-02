@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom"
+import { Outlet, Navigate } from "react-router-dom"
 import { useUser } from "../ContextManager/UserContext";
 
 
@@ -8,9 +8,9 @@ export const PrivateRoute = () => {
 
   if(!isAuthenticated){
     
-    return <Navigate to='/login' replace/>
+    return <Navigate to='/login' replace />
     
   }
 
-  return <Outlet/> 
+  return <Outlet />
 }

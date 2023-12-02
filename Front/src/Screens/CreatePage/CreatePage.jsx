@@ -1,34 +1,38 @@
-import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Swal from 'sweetalert2'
 import { useProduct } from '../../ContextManager/ProductContext'
+import Swal from 'sweetalert2'
 
 const CreatePage = () => {
 
-    const { register, handleSubmit, formState:{errors} } = useForm()
-    const {createProduct} = useProduct()
+  const { register, handleSubmit, formState:{errors} } = useForm()
+  const {createProduct} = useProduct()
+
+  const onSubmit = handleSubmit(async (values) => {
+
+    await createProduct (values)
+
+    Swal.fire({
+
+      position: 'center',
+      icon: 'success',
+      title: 'Producto Creado',
+      showConfirmButton: false,
+      timer: 2000,
+
+    })
+
+    window.location.reload('/')
+
+  })
+
+  
 
 
-  /* const AForm = (e) => {
-
-    e.preventDefault()
-
-      Swal.fire({
-
-        position: 'center',
-        icon: 'success',
-        title: 'Enviado',
-        showConfirmButton: false,
-        timer: 1500,
-
-      })
-
-    } */
 
   return (
     <div className='container card col-12 col-md-6 my-4'>
 
-      <form className='p-5' onSubmit={handleSubmit( async (values) => { await createProduct (values)})}>
+      <form className='p-5' onSubmit={onSubmit}>
 
           <label className='contact'>Nuevo Producto</label>
 
@@ -52,7 +56,7 @@ const CreatePage = () => {
 
           <label className='sub-t'>Descripcion:</label>
 
-          <input className='te-form' placeholder='Descripcion' type="text" {...register('descripcion', {required: true})}></input>
+          <textarea className='te-form' placeholder='Descripcion' type="text" {...register('descripcion', {required: true})}></textarea>
 
           <label className='sub-t'>Imagen:</label>
 

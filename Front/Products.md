@@ -1,50 +1,41 @@
-import React,{createContext, useContext, useState} from 'react'
+nombre : Monitor gamer Samsung F24T35 led 24" azul y gris oscuro 100V/240V
+tag : Monitor
+precio : 79000
+stock : 10
+descripcion : 
 
-const Context = createContext()
+Pantalla led de 24".
+Tiene una resolución de 1920px-1080px.
+Relación de aspecto de 16:9.
+Panel IPS.
+Su brillo es de 250cd/m².
+Tipos de conexión: D-Sub, HDMI 1.4.
+Es reclinable.
+Comodidad visual en todo momento.
 
-const ContextProvider = ({children}) => {
+imagen : image-product (5).jpg
 
-    const products =[
+-------------------------------------------------------------------
 
-        {
-            nombre : 'Monitor gamer Samsung F24T35 led 24" azul y gris oscuro 100V/240V',
-            tag : 'Monitor',
-            precio : 79000,
-            stock : 10,
-            id : 1,
-            descripcion : 
-            [
-                'Pantalla led de 24".',
-                'Tiene una resolución de 1920px-1080px.',
-                'Relación de aspecto de 16:9.',
-                'Panel IPS.',
-                'Su brillo es de 250cd/m².',
-                'Tipos de conexión: D-Sub, HDMI 1.4.',
-                'Es reclinable.',
-                'Comodidad visual en todo momento.'
-            ],
-            imagen : 'image-product (5).jpg'
-        },
-        {
-            nombre: 'Monitor gamer Samsung F22T35 led 22" dark blue gray 100V/240V',
-            tag : 'Monitor',
-            precio: 70000,
-            stock : 10,
-            id:2,
-            descripcion: 
-            [
-                'Pantalla led de 22".',
-                'Tiene una resolución de 1920px-1080px.',
-                'Relación de aspecto de 16:9.',
-                'Panel IPS.',
-                'Su brillo es de 250cd/m².',
-                'Tipos de conexión: HDMI 1.4, D-Sub.',
-                'Es reclinable.',
-                'Comodidad visual en todo momento.'
-            ],
-            imagen : "image-product (4).jpg"
-        },
-        {
+nombre: Monitor gamer Samsung F22T35 led 22" dark blue gray 100V/240V
+tag : Monitor
+precio: 70000
+stock : 10
+descripcion: 
+
+Pantalla led de 22".
+Tiene una resolución de 1920px-1080px.
+Relación de aspecto de 16:9.
+Panel IPS.
+Su brillo es de 250cd/m².
+Tipos de conexión: HDMI 1.4, D-Sub.
+Es reclinable.
+Comodidad visual en todo momento.
+
+imagen : image-product (4).jpg
+
+-------------------------------------------------------------------
+
             nombre: 'Monitor gamer Philips V 221V8 LCD 21.5" negro 100V/240V',
             tag : 'Monitor',
             precio: 45000,
@@ -63,8 +54,9 @@ const ContextProvider = ({children}) => {
                 'Comodidad visual en todo momento.'
             ],
             imagen : "image-product (3).jpg"
-        },
-        {
+
+-------------------------------------------------------------------
+
             nombre: 'Monitor Samsung Odyssey G4 S25BG40 25 " - Negro - 100V/240V',
             tag : 'Monitor',
             precio: 157000,
@@ -82,8 +74,9 @@ const ContextProvider = ({children}) => {
                 'Conexiones DisplayPort 1.2, 2 HDMI 2.0 y Jack 3.5 mm para conectar dispositivos fácilmente'
             ],
             imagen : "image-product (6).jpg"
-        },
-        {
+
+-------------------------------------------------------------------
+
             nombre: 'Monitor Asus VA24E VA24EHE 23.8 " - Negro - 100V/240V',
             tag : 'Monitor',
             precio: 125000,
@@ -98,8 +91,9 @@ const ContextProvider = ({children}) => {
                 'Pantalla antirreflejo y ángulos de visión amplios para mayor comodidad'
             ],
             imagen : "image-product (2).jpg"
-        },
-        {
+
+-------------------------------------------------------------------
+
             nombre: 'Mouse De Juego Gamer Norcel N Series N271 8 Botones Rgb Negro',
             tag : 'Mouse',
             precio: 1300,
@@ -112,8 +106,9 @@ const ContextProvider = ({children}) => {
                 'Resolución de 6400dpi.'
             ],
             imagen : "image-product (8).jpg"
-        },
-        {
+
+-------------------------------------------------------------------
+
             nombre: 'Mouse Xinua M8 Gamer Recargable Luz Rgb 6 Botones Usb Pc',
             tag : 'Mouse',
             precio: 8000,
@@ -127,8 +122,9 @@ const ContextProvider = ({children}) => {
                 'Resolución de 1600dpi.'
             ],
             imagen : "image-product (1).jpg"
-        },
-        {
+
+-------------------------------------------------------------------
+
             nombre: 'Mouse De Juego Gamer Luz Rgb Retroiluminada Ergonomico',
             tag : 'Mouse',
             precio: 3200,
@@ -141,8 +137,9 @@ const ContextProvider = ({children}) => {
                 'Resolución de 2400dpi.'
             ],
             imagen : "image-product (7).jpg"
-        },
-        {
+
+-------------------------------------------------------------------
+
             nombre: 'Mouse gamer de juego Razer DeathAdder Essential negro',
             tag : 'Mouse',
             precio: 23000,
@@ -156,8 +153,9 @@ const ContextProvider = ({children}) => {
                 'Resolución de 6400dpi.'
             ],
             imagen : "image-product (9).jpg"
-        },
-        {
+
+-------------------------------------------------------------------
+
             nombre: 'Mouse Gamer Xtrike Me Gm-510 Backlit - Gaming Pc Notebook',
             tag : 'Mouse',
             precio: 2800,
@@ -170,49 +168,3 @@ const ContextProvider = ({children}) => {
                 'Resolución de 4800dpi.'
             ],
             imagen : "image-product (10).jpg"
-        },
-    ]
-
-    const getProductById = (id) => {
-        return products.find(producto => producto.id === Number(id))
-    }
-
-    const getProductCartById = (id) => {
-        return cart.find(producto => producto.id === Number(id))
-    }
-
-    const [cart, setCart] = useState([])
-
-    const isInCart = (id) => cart.some(producto => producto.id === Number(id))
-
-    const addProductCart = (id, quantity) => { 
-        if(isInCart(id)){
-            setCart (cart.map(product => {
-                if(product.id == id){
-                    product.quantity = quantity
-                }
-                return product
-            }))
-        }else{
-            setCart ([...cart, {...getProductById(id), quantity: quantity}])
-        }
-        
-    }
-
-    const getTotal = () => {
-        let total = 0
-        cart.forEach(product => total += product.precio * product.quantity)
-        return total
-    };
-
-
-  return (
-    <Context.Provider value={{products, getProductById, cart, setCart, addProductCart, isInCart, getProductCartById, getTotal}}>
-        {children}
-    </Context.Provider>
-  )
-}
-
-export const useCustomContext = () => useContext(Context)
-
-export default ContextProvider

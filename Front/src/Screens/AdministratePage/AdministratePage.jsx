@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { ProductCard, CreateCard } from '../../Components'
+import { useEffect, useReducer, useState } from 'react'
+import { ProductAdminCard, CreateCard } from '../../Components'
 import { useProduct } from '../../ContextManager/ProductContext'
 
 const AdministratePage = () => {
   
-  const {products} = useProduct()
-
+  const { products, getProducts } = useProduct()
   const [searchProduct, setSearchProduct] = useState('')
   const [currentProducts, setCurrentProducts] = useState(products)
   const [max, setMax] = useState(1000000)
   const [min, setMin] = useState(0)
 
-    useEffect(() => {
-        setCurrentProducts(
-        products.filter(producto => producto.nombre.toLowerCase().includes(searchProduct.toLowerCase()) && producto.precio >= min && producto.precio <= max
-        ))}, [searchProduct, min, max])
+  useEffect(() => {
+    getProducts()
+  },[])
+
+  useEffect(() => {
+    setCurrentProducts(
+      products.filter(producto => producto.nombre.toLowerCase().includes(searchProduct.toLowerCase()) && producto.precio >= min && producto.precio <= max)
+      )
+  }, [products, searchProduct, min, max])
 
   return (
     <div className='container'>
@@ -82,7 +86,7 @@ const AdministratePage = () => {
 
             <CreateCard/>
 
-            {products.map(producto => (<ProductCard producto={producto} key={producto._id}/>))}
+            {currentProducts.map(producto => (<ProductAdminCard producto={producto} key={producto._id}/>))}
 
           </div>
 
