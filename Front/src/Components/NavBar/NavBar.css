@@ -38,3 +38,10 @@ a {
     color: #16A085;
     font-size: 20px;
 }
+
+.nav-item-button {
+    color: #16A085;
+    font-size: 20px;
+    border: 0;
+    background: none;
+}

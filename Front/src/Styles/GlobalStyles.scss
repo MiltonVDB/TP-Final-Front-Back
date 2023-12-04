@@ -1,31 +1,42 @@
-html, body{
+html,
+body {
     height: 100%;
-	width: 100%;
-	margin: 0;
+    width: 100%;
+    margin: 0;
 
 }
 
-body{
+body {
 
     background-color: #F7F8FA;
     font-family: 'Poppins', sans-serif !important;
-    & > div{
-        
+
+    &>div {
+
         display: flex;
         flex-direction: column;
         height: 100vh;
-        
-
     }
-    
+
 }
 
+.c-1 {
+    color: #16A085;
+}
+
+.c-3 {
+    color: red;
+}
 
 hr {
     border: 0;
     background-color: #c4c9d1;
     min-height: 2px;
     display: block;
+}
+
+.h-100 {
+    height: 100%;
 }
 
 .card {
@@ -45,11 +56,69 @@ hr {
     object-fit: cover;
 }
 
-.y-center
-{
+.y-center {
     display: flex;
     align-items: center;
-    
 }
 
+label {
+    color: #4D5E80;
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: .5px;
+    margin: 0 0 6px;
+}
 
+.input {
+    border-radius: 6px;
+    border: solid 1px #4D5E80;
+    min-height: 30px;
+    padding: 8px 12px;
+
+    &:focus {
+        outline-color: #16A085;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    }
+}
+
+.btnui {
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    border: 0;
+    color: white;
+    background: #16A085;
+    border: 2px solid #16A085;
+    min-width: 120px;
+    padding: 6px 12px;
+    transition: .24s;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    font-weight: 500;
+
+    &:hover {
+        box-shadow: 0px 2px 5px 7px rgba(38, 51, 77, 0.06);
+        color: #16A085;
+        background: none;
+    }
+
+    &.small {
+        min-width: 84px;
+        padding: 2px 14px;
+    }
+
+    &.medium {
+        min-width: 180px;
+        padding: 5px 18px;
+        font-size: 18px;
+    }
+}
+
+.btndelete {
+    border: 0;
+    background: none;
+    padding: 10px 0 0;
+    margin-left: auto;
+    color: #16A085;
+    font-size: 22px;
+}

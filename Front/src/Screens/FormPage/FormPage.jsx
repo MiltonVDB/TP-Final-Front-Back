@@ -1,66 +1,59 @@
 import { useState } from 'react'
 import Swal from 'sweetalert2'
-import './FormPage.css'
+
 
 const FormPage = () => {
+    const [nombre, setNombre] = useState("");
+    const [email, setEmail] = useState("");
+    const [asunto, setAsunto] = useState("");
+    const [mensaje, setMensaje] = useState("");
 
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [asunto, setAsunto] = useState("");
-  const [mensaje, setMensaje] = useState("");
+    const AForm = (e) => {
+        e.preventDefault()
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Enviado',
+            showConfirmButton: false,
+            timer: 1500,
 
-
-  const AForm = (e) => {
-
-    e.preventDefault()
-
-      Swal.fire({
-
-        position: 'center',
-        icon: 'success',
-        title: 'Enviado',
-        showConfirmButton: false,
-        timer: 1500,
-
-      })
-
-      setNombre("")
-      setEmail("")
-      setAsunto("")
-      setMensaje("")
-
+        })
+        setNombre("")
+        setEmail("")
+        setAsunto("")
+        setMensaje("")
     }
 
-  return (
-    <div className='container card col-12 col-md-6 my-4'>
+    return (
+        <div className='container card col-12 col-md-8 col-lg-6 col-xl-4 my-4'>
+            <form className='text-start p-5' onSubmit={AForm} >
 
-      <form className='p-5' onSubmit={AForm} >
+                <h3 className='text-center mb-4 pb-3 fw-bold'>Contacto</h3>
 
-          <label className='contact'>Contacto</label>
+                <div className='pb-3'>
+                    <label>Nombre*:</label>
+                    <input className='input w-100' value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder='Ingrese su nombre' type="text" required />
+                </div>
 
-          <label className='sub-t'>Nombre*:</label>
+                <div className='pb-3'>
+                    <label>Email*:</label>
+                    <input className='input w-100' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Ingrese su Email' type="email" required />
+                </div>
 
-          <input className='in-form' value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder='Ingrese su nombre' type="text" required/>
+                <div className='pb-3'>
+                    <label>Asunto*:</label>
+                    <input className='input w-100' value={asunto} onChange={(e) => setAsunto(e.target.value)} placeholder='Ingrese el asunto' type="text" required />
+                </div>
 
-          <label className='sub-t'>Email*:</label>
+                <div className='pb-3'>
+                    <label>Mensaje*:</label>
+                    <textarea className='input w-100' value={mensaje} onChange={(e) => setMensaje(e.target.value)} required></textarea>
+                </div>
 
-          <input className='in-form' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Ingrese su Email' type="email" required/>
-
-          <label className='sub-t'>Asunto*:</label>
-
-          <input className='in-form' value={asunto} onChange={(e) => setAsunto(e.target.value)} placeholder='Ingrese el asunto' type="text" required/>
-
-          <label className='sub-t'>Mensaje*:</label>
-
-          <textarea className='te-form' value={mensaje} onChange={(e) => setMensaje(e.target.value)} required></textarea>
-
-          <button className='buttonDiv mt-3 y-center'  type='submit'>Enviar</button>
-          
-
-      </form>
-      
-    </div>
-  )
+                <button className='btnui medium mt-4 mx-auto' type='submit'>Enviar</button>
+            </form>
+        </div>
+    )
 }
 
 export default FormPage

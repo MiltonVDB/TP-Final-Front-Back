@@ -3,72 +3,63 @@ import { useProduct } from '../../ContextManager/ProductContext'
 import Swal from 'sweetalert2'
 
 const CreatePage = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { createProduct } = useProduct()
 
-  const { register, handleSubmit, formState:{errors} } = useForm()
-  const {createProduct} = useProduct()
-
-  const onSubmit = handleSubmit(async (values) => {
-
-    await createProduct (values)
-
-    Swal.fire({
-
-      position: 'center',
-      icon: 'success',
-      title: 'Producto Creado',
-      showConfirmButton: false,
-      timer: 2000,
-
+    const onSubmit = handleSubmit(async (values) => {
+        await createProduct(values)
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Producto Creado',
+            showConfirmButton: false,
+            timer: 2000,
+        })
+        window.location.reload('/')
     })
 
-    window.location.reload('/')
+    return (
+        <div className='container card col-12 col-md-8 col-lg-6 col-xl-4 my-4'>
+            <form className='text-start p-5' onSubmit={onSubmit}>
 
-  })
+                <h3 className='text-center mb-4 pb-3 fw-bold'>Nuevo Producto</h3>
 
-  
+                <div className='pb-3'>
+                    <label>Nombre:</label>
+                    <input className='input w-100' placeholder='Nombre del producto' type="text" {...register('nombre', { required: true })} />
+                    {errors.nombre && (<p>Se requiere Nombre</p>)}
+                </div>
 
+                <div className='pb-3'>
+                    <label>Tag:</label>
+                    <input className='input w-100' placeholder='Tag del producto' type="text" {...register('tag', { required: true })} />
+                </div>
 
+                <div className='pb-3'>
+                    <label>Precio:</label>
+                    <input className='input w-100' placeholder='Precio' type="number" {...register('precio', { required: true })} />
+                </div>
 
-  return (
-    <div className='container card col-12 col-md-6 my-4'>
+                <div className='pb-3'>
+                    <label>Stock:</label>
+                    <input className='input w-100' placeholder='Stock' type="number" {...register('stock', { required: true })}></input>
+                </div>
 
-      <form className='p-5' onSubmit={onSubmit}>
+                <div className='pb-3'>
+                    <label>Descripcion:</label>
+                    <textarea className='input w-100' placeholder='Descripcion' type="text" {...register('descripcion', { required: true })}></textarea>
+                </div>
 
-          <label className='contact'>Nuevo Producto</label>
+                <div className='pb-3'>
+                    <label>Imagen:</label>
+                    <input className='input w-100' placeholder='Thumbnail' type="text" {...register('thumbnail', { required: true })}></input>
+                </div>
 
-          <label className='sub-t'>Nombre:</label>
+                <button className='btnui medium mt-4 mx-auto' type='submit'>Cargar Producto</button>
 
-          <input className='in-form' placeholder='Nombre del producto' type="text" {...register('nombre', {required: true})}/>
-
-          {errors.nombre && (<p>Se requiere Nombre</p>)}
-
-          <label className='sub-t'>Tag:</label>
-
-          <input className='in-form' placeholder='Tag del producto' type="text" {...register('tag', {required: true})}/>
-
-          <label className='sub-t'>Precio:</label>
-
-          <input className='in-form' placeholder='Precio' type="number" {...register('precio', {required: true})}/>
-
-          <label className='sub-t'>Stock:</label>
-
-          <input className='in-form' placeholder='Stock' type="number" {...register('stock', {required: true})}></input>
-
-          <label className='sub-t'>Descripcion:</label>
-
-          <textarea className='te-form' placeholder='Descripcion' type="text" {...register('descripcion', {required: true})}></textarea>
-
-          <label className='sub-t'>Imagen:</label>
-
-          <input className='in-form' placeholder='Thumbnail' type="text" {...register('thumbnail', {required: true})}></input>
-
-          <button className='buttonDiv mt-3 y-center'  type='submit'>Cargar Producto</button>
-          
-
-      </form>
-      
-    </div>
-  )
+            </form>
+        </div>
+    )
 }
 
 export default CreatePage

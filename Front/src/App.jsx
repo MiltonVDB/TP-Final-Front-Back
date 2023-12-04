@@ -4,13 +4,11 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { NavBar, Footer } from './Components'
 import { PrivateRoute } from './ProtectedRoute/PrivateRoute'  
 
-
-
 function App() {
 
   return (
     <>
-    <NavBar/>
+      <NavBar/>
 
       <Routes>
         <Route path='/' element={<Navigate to='/login'/>}/>
@@ -21,13 +19,13 @@ function App() {
           <Route path='/home' element={<HomePage/>}/>
           <Route path='/detail/:id' element={<DetailPage/>}/>
           <Route path='/cart' element={<CartPage/>}/>
-          <Route path='/form' element={<FormPage/>}/>
+          <Route path='/contacto' element={<FormPage/>}/>
           <Route path='/administrate' element={<AdministratePage/>}/>
           <Route path='/create' element={<CreatePage/>}/>
         </Route>
       </Routes>
 
-    <Footer/>
+      <Footer/>
     </>
   )
 }
